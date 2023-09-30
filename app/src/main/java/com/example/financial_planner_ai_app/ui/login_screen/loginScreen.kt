@@ -41,6 +41,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.financial_planner_ai_app.R
 import com.example.financial_planner_ai_app.presentation.theme.md_theme_light_onPrimary
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Login(
