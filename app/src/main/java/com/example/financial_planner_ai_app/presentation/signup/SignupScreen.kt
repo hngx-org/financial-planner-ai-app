@@ -1,5 +1,7 @@
 package com.example.financial_planner_ai_app.presentation.signup
 
+
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -9,6 +11,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
@@ -21,14 +26,20 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.error
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -43,6 +54,16 @@ fun SignupScreen(
 ) {
     var termsAccepted by remember { mutableStateOf(false) }
     val signupUiState by signupViewModel.signupUiState.collectAsState()
+    var name by remember { mutableStateOf("") }
+    var showDialog by remember { mutableStateOf(false) }
+    var text by rememberSaveable { mutableStateOf("") }
+    var isError by rememberSaveable { mutableStateOf(false) }
+    var passwordHidden by rememberSaveable { mutableStateOf(true) }
+
+    fun validate(text: String) {
+        isError = text.count() < 3
+    }
+
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -66,12 +87,8 @@ fun SignupScreen(
             modifier = Modifier
                 .fillMaxWidth(0.9f)
                 .padding(bottom = 20.dp),
-            placeholder = {
-                Text(
-                    text = "Enter first name",
-                    color = MaterialTheme.colorScheme.primary
-                )
-            }
+            label = { Text(text = "Enter first name")},
+            singleLine = true
         )
         OutlinedTextField(
             value = signupUiState.lastName,
@@ -81,25 +98,26 @@ fun SignupScreen(
             modifier = Modifier
                 .fillMaxWidth(0.9f)
                 .padding(bottom = 20.dp),
-            placeholder = {
-                Text(
-                    text = "Enter last name",
-                    color = MaterialTheme.colorScheme.primary
-                )
-            }
+            label = { Text(text = "Enter last name")},
+            singleLine = true
         )
         OutlinedTextField(
             value = signupUiState.email,
-            onValueChange = { signupViewModel.updateUserInput(signupUiState.copy(email = it)) },
+            onValueChange = {
+                signupViewModel.updateUserInput(signupUiState.copy(email = it))
+                isError = false
+                            },
+            label = { Text(if (isError) "Email*" else "Email")},
+            isError = isError,
+            keyboardActions = KeyboardActions { validate(text) } ,
+            singleLine = true,
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
             modifier = Modifier
                 .fillMaxWidth(0.9f)
-                .padding(bottom = 20.dp),
-            placeholder = {
-                Text(
-                    text = "Enter email",
-                    color = MaterialTheme.colorScheme.primary
-                )
-            }
+                .padding(bottom = 20.dp)
+                .semantics {
+                    if (isError) error("Email format is invalid")
+                }
         )
         OutlinedTextField(
             value = signupUiState.password,
@@ -107,12 +125,17 @@ fun SignupScreen(
             modifier = Modifier
                 .fillMaxWidth(0.9f)
                 .padding(bottom = 20.dp),
-            placeholder = {
-                Text(
-                    text = "Enter password",
-                    color = MaterialTheme.colorScheme.primary
-                )
-            }
+            label = { Text(text = "Enter password")},
+            singleLine = true,
+            visualTransformation = if (passwordHidden) PasswordVisualTransformation() else VisualTransformation.None ,
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+//            trailingIcon = {
+//                IconButton(onClick = { passwordHidden = !passwordHidden }) {
+//                    val visibilityIcon = if (passwordHidden)
+//                    val description = if (passwordHidden) "Show password" else "Hide password"
+//                    Icon(imageVector = visibilityIcon, contentDescription = description)
+//                }
+//            }
         )
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -122,6 +145,10 @@ fun SignupScreen(
                 checked = termsAccepted,
                 onCheckedChange = {
                     termsAccepted = it
+                    if (!it) {
+                        // Checkbox is unchecked, show the popup
+                        showDialog = true
+                    }
                 }
             )
             Text(
@@ -159,7 +186,11 @@ fun SignupScreen(
             )
         }
         Button(
-            onClick = { /*TODO*/ },
+            onClick = {
+                if (termsAccepted){
+                    //navigate
+                }
+                      },
             modifier = Modifier
                 .padding(20.dp)
                 .height(60.dp)
@@ -171,7 +202,11 @@ fun SignupScreen(
             )
         }
         Button(
-            onClick = { /*TODO*/ },
+            onClick = {
+                      if (termsAccepted){
+                          //navigate
+                      }
+                      },
             modifier = Modifier
                 .border(1.dp, Color(233, 221, 231))
                 .padding(10.dp)
@@ -219,6 +254,26 @@ fun SignupScreen(
                 }
             },
             modifier = Modifier.padding(20.dp)
+        )
+    }
+    if (showDialog) {
+        AlertDialog(
+            onDismissRequest = { showDialog = false },
+            title = {
+                Text(text = "Terms and Conditions")
+            },
+            text = {
+                Text(text = "Please accept the Terms and Conditions to proceed.")
+            },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        // Close the dialog and handle as needed
+                        showDialog = false
+                    }
+                ) {
+                    Text("OK")
+                }}
         )
     }
 }
