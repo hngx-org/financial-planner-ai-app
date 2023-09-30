@@ -65,10 +65,12 @@ fun SignupScreen(
             modifier = Modifier
                 .fillMaxWidth(0.9f)
                 .padding(bottom = 20.dp),
-            placeholder = { Text(
-                text = "Enter first name",
-                color = MaterialTheme.colorScheme.primary
-            ) }
+            placeholder = {
+                Text(
+                    text = "Enter first name",
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
         )
         OutlinedTextField(
             value = signupUiState.lastName,
@@ -76,10 +78,12 @@ fun SignupScreen(
             modifier = Modifier
                 .fillMaxWidth(0.9f)
                 .padding(bottom = 20.dp),
-            placeholder = { Text(
-                text = "Enter last name",
-                color = MaterialTheme.colorScheme.primary
-            ) }
+            placeholder = {
+                Text(
+                    text = "Enter last name",
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
         )
         OutlinedTextField(
             value = signupUiState.email,
@@ -87,10 +91,12 @@ fun SignupScreen(
             modifier = Modifier
                 .fillMaxWidth(0.9f)
                 .padding(bottom = 20.dp),
-            placeholder = { Text(
-                text = "Enter email",
-                color = MaterialTheme.colorScheme.primary
-            ) }
+            placeholder = {
+                Text(
+                    text = "Enter email",
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
         )
         OutlinedTextField(
             value = signupUiState.password,
@@ -98,15 +104,17 @@ fun SignupScreen(
             modifier = Modifier
                 .fillMaxWidth(0.9f)
                 .padding(bottom = 20.dp),
-            placeholder = { Text(
-                text = "Enter password",
-                color = MaterialTheme.colorScheme.primary
-            ) }
+            placeholder = {
+                Text(
+                    text = "Enter password",
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
         )
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
-        ){
+        ) {
             Checkbox(
                 checked = termsAccepted,
                 onCheckedChange = {
@@ -116,18 +124,28 @@ fun SignupScreen(
             Text(
                 buildAnnotatedString {
 
-                    withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary, fontSize = 16.sp)){
-                                         append("I have read and agree to")
-                                     }
-                    withStyle(style = SpanStyle(color = Color.Blue, fontSize = 16.sp)){
-                                         append("Terms of conditions\n")
-                                     }
-                    withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary, fontSize = 16.sp)){
-                                         append("and ")
-                                     }
-                    withStyle(style = SpanStyle(color = Color.Blue, fontSize = 16.sp)){
-                                         append("Privacy Policy")
-                                     }
+                    withStyle(
+                        style = SpanStyle(
+                            color = MaterialTheme.colorScheme.primary,
+                            fontSize = 16.sp
+                        )
+                    ) {
+                        append("I have read and agree to")
+                    }
+                    withStyle(style = SpanStyle(color = Color.Blue, fontSize = 16.sp)) {
+                        append("Terms of conditions\n")
+                    }
+                    withStyle(
+                        style = SpanStyle(
+                            color = MaterialTheme.colorScheme.primary,
+                            fontSize = 16.sp
+                        )
+                    ) {
+                        append("and ")
+                    }
+                    withStyle(style = SpanStyle(color = Color.Blue, fontSize = 16.sp)) {
+                        append("Privacy Policy")
+                    }
                 },
                 fontSize = 16.sp,
                 modifier = Modifier
@@ -166,7 +184,7 @@ fun SignupScreen(
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.search),
-                    contentDescription ="google"
+                    contentDescription = "google"
                 )
                 Text(
                     text = "Sign Up with Google",
@@ -178,11 +196,22 @@ fun SignupScreen(
 
         }
         Text(
-            buildAnnotatedString{
-                withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary, fontSize = 18.sp)){
+            buildAnnotatedString {
+                withStyle(
+                    style = SpanStyle(
+                        color = MaterialTheme.colorScheme.primary,
+                        fontSize = 18.sp
+                    )
+                ) {
                     append("Already have an account?")
                 }
-                withStyle(style = SpanStyle(fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary, fontSize = 20.sp)) {
+                withStyle(
+                    style = SpanStyle(
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.primary,
+                        fontSize = 20.sp
+                    )
+                ) {
                     append(" Login")
                 }
             },
