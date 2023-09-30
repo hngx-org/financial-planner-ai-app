@@ -32,7 +32,8 @@ fun PrivacyPolicyScreen(modifier: Modifier = Modifier) {
         )
         Text(
             text = "We work directly with banks and financial institutions thus when collecting payments there is no risk for any breaches to your accounts. We also have a developer team working round the clock to ensure our services are always up.",
-            modifier = Modifier.padding(end = 20.dp)
+            modifier = Modifier
+                .padding(end = 20.dp)
                 .padding(start = 20.dp)
         )
     }
