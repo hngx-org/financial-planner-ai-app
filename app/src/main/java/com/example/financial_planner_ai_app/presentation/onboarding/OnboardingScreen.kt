@@ -16,12 +16,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,17 +42,17 @@ fun OnboardingScreen() {
 fun OnboardingScreenContent() {
 
     val pageCount = 3
-    val pagerState = rememberPagerState(pageCount = { 3 })
+    val pagerState = rememberPagerState(initialPage = 0)
 
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(16.dp),
+        contentPadding = PaddingValues(vertical = 16.dp),
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.Start
     ) {
 
         item {
-            OutlinedButton(onClick = { /*TODO*/ }) {
+            OutlinedButton(onClick = { /*TODO*/ }, modifier = Modifier.padding(start = 16.dp)) {
                 Text(text = "Skip", fontWeight = FontWeight.Bold)
             }
         }
@@ -65,7 +63,10 @@ fun OnboardingScreenContent() {
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 HorizontalPager(
-                    state = pagerState
+                    state = pagerState,
+                    pageCount = pageCount,
+                    contentPadding = PaddingValues(horizontal = 16.dp),
+                    pageSpacing = 16.dp
                 ) { page ->
                     when (page) {
                         0 -> {
@@ -106,7 +107,10 @@ fun OnboardingScreenContent() {
             }
         }
         item {
-            OnBoardingButton(onClick = { /*TODO*/ })
+            OnBoardingButton(
+                onClick = { /*TODO*/ },
+                modifier = Modifier.padding(horizontal = 16.dp)
+            )
         }
 
     }
