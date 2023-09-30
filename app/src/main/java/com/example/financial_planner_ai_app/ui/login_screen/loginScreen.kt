@@ -1,4 +1,4 @@
-package com.example.financial_planner_ai_app.login_screen
+package com.example.financial_planner_ai_app.ui.login_screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -39,7 +39,7 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.financial_planner_ai_app.R
-import com.example.financial_planner_ai_app.ui.theme.md_theme_light_onPrimary
+import com.example.financial_planner_ai_app.presentation.theme.md_theme_light_onPrimary
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -66,7 +66,8 @@ fun Login(
                 LottieAnimation(
                     modifier = Modifier.size(400.dp),
                     composition = composition,
-                    progress = {progress})
+                    progress = progress
+                )
                 Row(
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.Bottom,

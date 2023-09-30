@@ -2,7 +2,10 @@ package com.example.financial_planner_ai_app.presentation.privacypolicy
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -36,6 +39,18 @@ fun PrivacyPolicyScreen(modifier: Modifier = Modifier) {
                 .padding(end = 20.dp)
                 .padding(start = 20.dp)
         )
+        Button(
+            onClick = { /*TODO*/ },
+            modifier = Modifier.padding(20.dp)
+                .height(60.dp)
+                .fillMaxWidth(0.8f),
+
+        ) {
+            Text(
+                text = "Back To Signup",
+                fontSize = 20.sp
+            )
+        }
     }
 }
 
