@@ -17,6 +17,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -38,10 +39,10 @@ import com.example.financial_planner_ai_app.R
 @Composable
 fun SignupScreen(
     modifier: Modifier = Modifier,
-    signupUiState: SignupUiState,
-    onFirstNameInput: () -> Unit
+    signupViewModel: SignupViewModel
 ) {
     var termsAccepted by remember { mutableStateOf(false) }
+    val signupUiState by signupViewModel.signupUiState.collectAsState()
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -61,7 +62,7 @@ fun SignupScreen(
         )
         OutlinedTextField(
             value = signupUiState.firstName,
-            onValueChange = { onFirstNameInput() },
+            onValueChange = { signupViewModel.updateUserInput(signupUiState.copy(firstName = it)) },
             modifier = Modifier
                 .fillMaxWidth(0.9f)
                 .padding(bottom = 20.dp),
@@ -74,7 +75,9 @@ fun SignupScreen(
         )
         OutlinedTextField(
             value = signupUiState.lastName,
-            onValueChange = { onFirstNameInput() },
+            onValueChange = {
+                            signupViewModel.updateUserInput(signupUiState.copy(lastName = it))
+                            },
             modifier = Modifier
                 .fillMaxWidth(0.9f)
                 .padding(bottom = 20.dp),
@@ -87,7 +90,7 @@ fun SignupScreen(
         )
         OutlinedTextField(
             value = signupUiState.email,
-            onValueChange = { onFirstNameInput() },
+            onValueChange = { signupViewModel.updateUserInput(signupUiState.copy(email = it)) },
             modifier = Modifier
                 .fillMaxWidth(0.9f)
                 .padding(bottom = 20.dp),
@@ -100,7 +103,7 @@ fun SignupScreen(
         )
         OutlinedTextField(
             value = signupUiState.password,
-            onValueChange = { onFirstNameInput() },
+            onValueChange = { signupViewModel.updateUserInput(signupUiState.copy(password = it)) },
             modifier = Modifier
                 .fillMaxWidth(0.9f)
                 .padding(bottom = 20.dp),
@@ -220,16 +223,14 @@ fun SignupScreen(
     }
 }
 
+
+@Composable
+fun SignupScreenErrorScreen() {}
+
 @Preview(showBackground = true)
 @Composable
 fun SignupScreenPreview() {
     SignupScreen(
-        signupUiState = SignupUiState(
-            firstName = "",
-            lastName = "",
-            email = "",
-            password = ""
-        ),
-        onFirstNameInput = {}
+        signupViewModel = SignupViewModel()
     )
 }
