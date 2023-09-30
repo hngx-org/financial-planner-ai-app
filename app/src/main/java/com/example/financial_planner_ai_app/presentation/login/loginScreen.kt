@@ -1,4 +1,4 @@
-package com.example.financial_planner_ai_app.ui.login_screen
+package com.example.financial_planner_ai_app.presentation.login
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
