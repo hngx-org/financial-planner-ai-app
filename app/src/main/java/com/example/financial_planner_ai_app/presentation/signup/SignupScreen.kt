@@ -82,23 +82,12 @@ fun SignupScreen(
             color = MaterialTheme.colorScheme.primary
         )
         OutlinedTextField(
-            value = signupUiState.firstName,
-            onValueChange = { signupViewModel.updateUserInput(signupUiState.copy(firstName = it)) },
+            value = signupUiState.name,
+            onValueChange = { signupViewModel.updateUserInput(signupUiState.copy(name = it)) },
             modifier = Modifier
                 .fillMaxWidth(0.9f)
                 .padding(bottom = 20.dp),
-            label = { Text(text = "Enter first name")},
-            singleLine = true
-        )
-        OutlinedTextField(
-            value = signupUiState.lastName,
-            onValueChange = {
-                            signupViewModel.updateUserInput(signupUiState.copy(lastName = it))
-                            },
-            modifier = Modifier
-                .fillMaxWidth(0.9f)
-                .padding(bottom = 20.dp),
-            label = { Text(text = "Enter last name")},
+            label = { Text(text = "Enter name")},
             singleLine = true
         )
         OutlinedTextField(
@@ -126,6 +115,24 @@ fun SignupScreen(
                 .fillMaxWidth(0.9f)
                 .padding(bottom = 20.dp),
             label = { Text(text = "Enter password")},
+            singleLine = true,
+            visualTransformation = if (passwordHidden) PasswordVisualTransformation() else VisualTransformation.None ,
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+//            trailingIcon = {
+//                IconButton(onClick = { passwordHidden = !passwordHidden }) {
+//                    val visibilityIcon = if (passwordHidden)
+//                    val description = if (passwordHidden) "Show password" else "Hide password"
+//                    Icon(imageVector = visibilityIcon, contentDescription = description)
+//                }
+//            }
+        )
+        OutlinedTextField(
+            value = signupUiState.confirmPassword,
+            onValueChange = { signupViewModel.updateUserInput(signupUiState.copy(confirmPassword = it)) },
+            modifier = Modifier
+                .fillMaxWidth(0.9f)
+                .padding(bottom = 21.dp),
+            label = { Text(text = "Confirm password")},
             singleLine = true,
             visualTransformation = if (passwordHidden) PasswordVisualTransformation() else VisualTransformation.None ,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
