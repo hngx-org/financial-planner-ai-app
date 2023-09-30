@@ -1,4 +1,4 @@
-package com.example.financial_planner_ai_app.ui.theme
+package com.example.financial_planner_ai_app.presentation.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

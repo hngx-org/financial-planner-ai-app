@@ -1,4 +1,4 @@
-package com.example.financial_planner_ai_app.ui.theme
+package com.example.financial_planner_ai_app.presentation.theme
 import androidx.compose.ui.graphics.Color
 
 val md_theme_light_primary = Color(0xFF6750A4)

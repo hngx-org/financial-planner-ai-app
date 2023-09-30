@@ -1,4 +1,4 @@
-package com.example.financial_planner_ai_app.ui.screens
+package com.example.financial_planner_ai_app.presentation.signup
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
