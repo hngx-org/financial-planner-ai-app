@@ -1,4 +1,4 @@
-package com.example.financial_planner_ai_app.ui.screens
+package com.example.financial_planner_ai_app.presentation.privacypolicy
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
