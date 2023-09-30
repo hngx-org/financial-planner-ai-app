@@ -131,7 +131,7 @@ fun SignupScreen(
             onValueChange = { signupViewModel.updateUserInput(signupUiState.copy(confirmPassword = it)) },
             modifier = Modifier
                 .fillMaxWidth(0.9f)
-                .padding(bottom = 20.dp),
+                .padding(bottom = 21.dp),
             label = { Text(text = "Confirm password")},
             singleLine = true,
             visualTransformation = if (passwordHidden) PasswordVisualTransformation() else VisualTransformation.None ,
