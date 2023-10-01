@@ -1,8 +1,8 @@
 package com.example.financial_planner_ai_app.presentation.signup
 
 data class SignupUiState(
-    val firstName: String = "",
-    val lastName: String = "",
+    val name: String = "",
     val password: String = "",
-    val email: String = ""
+    val email: String = "",
+    val confirmPassword: String = ""
 )
