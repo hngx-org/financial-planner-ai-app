@@ -4,6 +4,7 @@ package com.example.financial_planner_ai_app.presentation.signup
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -44,13 +45,16 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.financial_planner_ai_app.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignupScreen(
     modifier: Modifier = Modifier,
-    signupViewModel: SignupViewModel
+    signupViewModel: SignupViewModel,
+    navController: NavController
 ) {
     var termsAccepted by remember { mutableStateOf(false) }
     val signupUiState by signupViewModel.signupUiState.collectAsState()
@@ -188,16 +192,18 @@ fun SignupScreen(
                 modifier = Modifier
                     .padding(top = 20.dp)
                     .padding(bottom = 20.dp)
-                    .padding(8.dp),
+                    .padding(8.dp)
+                    .clickable { navController.navigate("terms&conditions") },
                 color = MaterialTheme.colorScheme.primary
             )
         }
         Button(
             onClick = {
-                if (termsAccepted){
+                if (termsAccepted) {
                     //navigate
+                    navController.navigate("HomeScreen")
                 }
-                      },
+            },
             modifier = Modifier
                 .padding(20.dp)
                 .height(60.dp)
@@ -212,6 +218,8 @@ fun SignupScreen(
             onClick = {
                       if (termsAccepted){
                           //navigate
+                          navController.navigate("terms&conditions")
+
                       }
                       },
             modifier = Modifier
@@ -292,7 +300,9 @@ fun SignupScreenErrorScreen() {}
 @Preview(showBackground = true)
 @Composable
 fun SignupScreenPreview() {
+    val navController = rememberNavController()
     SignupScreen(
-        signupViewModel = SignupViewModel()
+        signupViewModel = SignupViewModel(),
+        navController = navController
     )
 }

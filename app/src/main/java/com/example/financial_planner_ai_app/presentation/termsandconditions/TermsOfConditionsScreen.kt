@@ -15,9 +15,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun TermsOfConditionsScreen(modifier: Modifier = Modifier) {
+fun TermsOfConditionsScreen(
+    navController: NavController,
+    modifier: Modifier = Modifier,
+    onTermClick: ()-> Unit) {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -57,7 +62,7 @@ fun TermsOfConditionsScreen(modifier: Modifier = Modifier) {
             )
 
         Button(
-            onClick = { /*TODO*/ },
+            onClick = onTermClick,
             modifier = Modifier
                 .padding(20.dp)
                 .height(60.dp)
@@ -75,5 +80,9 @@ fun TermsOfConditionsScreen(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun TermsOfConditionsScreenPreview() {
-    TermsOfConditionsScreen()
+    val navController = rememberNavController()
+    TermsOfConditionsScreen(
+        onTermClick = {},
+        navController = navController
+        )
 }

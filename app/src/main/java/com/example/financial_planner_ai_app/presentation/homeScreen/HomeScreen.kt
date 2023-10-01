@@ -4,7 +4,6 @@ package com.example.financial_planner_ai_app.presentation.homeScreen
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -34,11 +33,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    homeScreenViewModel: HomeScreenViewModel
+    homeScreenViewModel: HomeScreenViewModel,
+    navController: NavController
 ) {
     var expanded by remember { mutableStateOf(false) }
     val homeScreenUiState by homeScreenViewModel.homeScreenUiState.collectAsState()
@@ -72,11 +74,11 @@ fun HomeScreen(
             ) {
                 DropdownMenuItem(
                     text = { Text("History") },
-                    onClick = { /*Navigate to History Screen*/ }
+                    onClick = {navController.navigate("history_screen") }
                 )
                 DropdownMenuItem(
                     text = { Text("Subscription") },
-                    onClick = { /*Navigate to payment Screen*/ }
+                    onClick = { navController.navigate("payment_screen")}
                 )
             }
         }
@@ -206,5 +208,8 @@ fun HomeScreen(
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen(homeScreenViewModel = HomeScreenViewModel())
+    val navController = rememberNavController()
+    HomeScreen(
+        homeScreenViewModel = HomeScreenViewModel(),
+        navController = navController)
 }
