@@ -8,6 +8,7 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface OpenApiService {
 
@@ -16,6 +17,9 @@ interface OpenApiService {
 
     @POST("api/auth/login")
     suspend fun login(@Body loginData: LoginData) : Response<AuthenticationResponse>
+
+    @GET("api/auth/{me}")
+    suspend fun getLoggedInUser(@Path("me") username: String) : Response<AuthenticationResponse>
 
     @GET("api/auth/logout")
     suspend fun logout() : Response<LogoutResponse>
