@@ -1,4 +1,4 @@
-package com.example.financial_planner_ai_app.presentation.login
+package com.example.financial_planner_ai_app.ui.login_screen
 
 data class LoginState(
     val emailAddress:String,
