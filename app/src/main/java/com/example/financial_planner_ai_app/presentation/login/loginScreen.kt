@@ -1,4 +1,4 @@
-package com.example.financial_planner_ai_app.ui.login_screen
+package com.example.financial_planner_ai_app.presentation.login
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -21,6 +21,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,6 +34,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
@@ -41,16 +43,19 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.financial_planner_ai_app.R
 import com.example.financial_planner_ai_app.presentation.theme.md_theme_light_onPrimary
 
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
 fun Login(
-    uiState: LoginState
+    onLoginClick: () -> Unit,
+    onSignUpClick: () -> Unit,
+    loginViewModel: LoginViewModel = hiltViewModel()
 ){
     val composition by rememberLottieComposition(
         LottieCompositionSpec.RawRes(R.raw.atm))
     val progress by animateLottieCompositionAsState(
         composition = composition,
         iterations = LottieConstants.IterateForever)
+    val loginUiState by loginViewModel.loginState.collectAsState()
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -66,7 +71,8 @@ fun Login(
                 LottieAnimation(
                     modifier = Modifier.size(400.dp),
                     composition = composition,
-                    progress = progress
+                    progress = {progress},
+                   // isPlaying = true
                 )
                 Row(
                     horizontalArrangement = Arrangement.Center,
@@ -77,7 +83,8 @@ fun Login(
                         textAlign = TextAlign.Center,
                         fontSize = 30.sp,
                         fontWeight = FontWeight.Bold,
-                        color = Color.Black
+                        color = Color.Black,
+                        modifier = Modifier.padding(10.dp)
                     )
                 }
 
@@ -88,7 +95,7 @@ fun Login(
         Column(modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally){
             OutlinedTextField(
-                value = uiState.emailAddress,
+                value = loginUiState.emailAddress,
                 onValueChange = {},
                 modifier = Modifier
                     .padding(16.dp)
@@ -103,7 +110,7 @@ fun Login(
             )
 
             OutlinedTextField(
-                value = uiState.password,
+                value = loginUiState.password,
                 onValueChange = {},
                 modifier = Modifier
                     .padding(16.dp)
@@ -118,13 +125,13 @@ fun Login(
             )
 
             Button(
-                onClick = {},
+                onClick = onLoginClick,
                 modifier = Modifier
                     .padding(16.dp)
                     .fillMaxWidth()
                     .align(Alignment.CenterHorizontally),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.onSurfaceVariant
+                    containerColor = MaterialTheme.colorScheme.primary
                 )
             ) {
                 Text(
@@ -144,11 +151,11 @@ fun Login(
                     text = stringResource(id = R.string.dont_have)
                 )
                 TextButton(
-                    onClick = {},
+                    onClick = onSignUpClick,
                 ) {
                     Text(
                         text = stringResource(id = R.string.click),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        color = MaterialTheme.colorScheme.primary
                     )
                 }
             }
@@ -160,10 +167,9 @@ fun Login(
 @Composable
 fun PreviewLoginScreen(){
     Login(
-        LoginState(
-            emailAddress = "",
-            password = ""
-        )
+        onLoginClick = {},
+        onSignUpClick = {},
+        loginViewModel = LoginViewModel()
     )
 }
 

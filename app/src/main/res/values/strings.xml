@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">financial-planner-ai-app</string>
     <string name="card">ATM Cards</string>
-    <string name="welcome">Financial Planner Ai App</string>
+    <string name="welcome">Welcome to Finance Ai</string>
+    <string name="entry_note">Finance Ai Planner\n your access to expert Financial Management Ideas</string>
     <string name="hint_email">Email Address</string>
     <string name="hint_password">Password</string>
     <string name="login">Login </string>
