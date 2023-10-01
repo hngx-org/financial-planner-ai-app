@@ -1,5 +1,6 @@
 package com.example.financial_planner_ai_app.presentation.onboarding
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -28,13 +29,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.financial_planner_ai_app.R
 import com.example.financial_planner_ai_app.presentation.onboarding.components.OnBoardingButton
 import com.example.financial_planner_ai_app.presentation.onboarding.components.Page
 import com.example.financial_planner_ai_app.presentation.theme.FinancialplanneraiappTheme
 
 @Composable
 fun OnboardingScreen() {
-
+    // add the OnboardingScreenContent composable here
 }
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -52,15 +54,17 @@ fun OnboardingScreenContent() {
     ) {
 
         item {
-            OutlinedButton(onClick = { /*TODO*/ }, modifier = Modifier.padding(start = 16.dp)) {
-                Text(text = "Skip", fontWeight = FontWeight.Bold)
+            AnimatedVisibility(visible = pagerState.currentPage == 0) {
+                OutlinedButton(onClick = { /*TODO*/ }, modifier = Modifier.padding(start = 16.dp)) {
+                    Text(text = "Skip", fontWeight = FontWeight.Bold)
+                }
             }
         }
 
         item {
             Column(
                 modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 HorizontalPager(
                     state = pagerState,
@@ -70,15 +74,24 @@ fun OnboardingScreenContent() {
                 ) { page ->
                     when (page) {
                         0 -> {
-                            Page(label = "Page 1")
+                            Page(
+                                imageId = R.drawable.finance_ai,
+                                description = "Introducing you to your finance buddy!"
+                            )
                         }
 
                         1 -> {
-                            Page(label = "Page 2")
+                            Page(
+                                imageId = R.drawable.financial_analysis,
+                                description = "Let's dive into financial planning together."
+                            )
                         }
 
                         2 -> {
-                            Page(label = "Page 3")
+                            Page(
+                                imageId = R.drawable.financial_chart,
+                                description = "Use AI to generate instant insights, future predictions & actionable tips."
+                            )
                         }
                     }
 
@@ -103,16 +116,17 @@ fun OnboardingScreenContent() {
                         )
                     }
                 }
-
             }
         }
-        item {
-            OnBoardingButton(
-                onClick = { /*TODO*/ },
-                modifier = Modifier.padding(horizontal = 16.dp)
-            )
-        }
 
+        item {
+            AnimatedVisibility(visible = pagerState.currentPage == 2) {
+                OnBoardingButton(
+                    onClick = { /*TODO*/ },
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                )
+            }
+        }
     }
 }
 
@@ -121,7 +135,8 @@ fun OnboardingScreenContent() {
 fun OnboardingScreenPreview() {
     FinancialplanneraiappTheme {
         Surface(
-            modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colorScheme.background
         ) {
             OnboardingScreenContent()
         }

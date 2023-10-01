@@ -34,7 +34,7 @@ fun OnBoardingButton(
         modifier = modifier
             .clickable { onClick() }
             .fillMaxWidth(),
-        color = MaterialTheme.colorScheme.primaryContainer,
+        color = MaterialTheme.colorScheme.primary,
         shape = MaterialTheme.shapes.medium
     ) {
         Row(
@@ -47,20 +47,22 @@ fun OnBoardingButton(
             Text(
                 text = "Begin", fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(start = 16.dp),
-                fontSize = 24.sp,
-                color = MaterialTheme.colorScheme.onPrimaryContainer
+                fontSize = 18.sp,
+                color = MaterialTheme.colorScheme.onPrimary
             )
             Box(
                 modifier = Modifier
                     .padding(end = 32.dp)
                     .clip(CircleShape)
-                    .background(MaterialTheme.colorScheme.primary)
-                    .size(54.dp),
+                    .background(MaterialTheme.colorScheme.primaryContainer)
+                    .size(45.dp),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
-                    imageVector = Icons.Outlined.ArrowRightAlt, contentDescription = null,
-                    modifier = Modifier.size(30.dp)
+                    imageVector = Icons.Outlined.ArrowRightAlt,
+                    contentDescription = null,
+                    modifier = Modifier.size(26.dp),
+                    tint = MaterialTheme.colorScheme.onPrimaryContainer
                 )
             }
         }
