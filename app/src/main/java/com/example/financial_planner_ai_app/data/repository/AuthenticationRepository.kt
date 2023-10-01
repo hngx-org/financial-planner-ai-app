@@ -59,12 +59,12 @@ class AuthenticationRepository @Inject constructor(
         }
     }
 
-    fun logout() : Flow<Resource<LogoutResponse?>> {
+    fun getLoggedInUser(username: String): Flow<Resource<AuthenticationResponse?>> {
         return flow {
             emit(Resource.Loading())
             try {
-                val response = apiService.logout()
-                if (response.isSuccessful){
+                val response = apiService.getLoggedInUser(username)
+                if (response.isSuccessful) {
                     emit(Resource.Success(data = response.body()))
                 } else {
                     return@flow
@@ -74,7 +74,27 @@ class AuthenticationRepository @Inject constructor(
             } catch (e: HttpException) {
                 emit(Resource.Error(message = e.localizedMessage ?: "An unknown error occurred"))
             }
-        }.catch { e->
+        }.catch { e ->
+            emit(Resource.Error(message = e.localizedMessage ?: "An unknown error occurred"))
+        }
+    }
+
+    fun logout(): Flow<Resource<LogoutResponse?>> {
+        return flow {
+            emit(Resource.Loading())
+            try {
+                val response = apiService.logout()
+                if (response.isSuccessful) {
+                    emit(Resource.Success(data = response.body()))
+                } else {
+                    return@flow
+                }
+            } catch (e: IOException) {
+                emit(Resource.Error(message = e.localizedMessage ?: "An unknown error occurred"))
+            } catch (e: HttpException) {
+                emit(Resource.Error(message = e.localizedMessage ?: "An unknown error occurred"))
+            }
+        }.catch { e ->
             emit(Resource.Error(message = e.localizedMessage ?: "An unknown error occurred"))
         }
     }
