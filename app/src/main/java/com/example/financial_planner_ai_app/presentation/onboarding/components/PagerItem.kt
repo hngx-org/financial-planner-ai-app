@@ -1,6 +1,7 @@
 package com.example.financial_planner_ai_app.presentation.onboarding.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -29,7 +30,7 @@ fun Page(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
@@ -38,6 +39,7 @@ fun Page(
                 .fillMaxWidth(0.9f)
                 .height(350.dp)
                 .clip(MaterialTheme.shapes.medium)
+                .border(1.dp, MaterialTheme.colorScheme.primary, MaterialTheme.shapes.medium)
         ) {
             Image(
                 painter = painterResource(id = imageId),
