@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -137,7 +136,9 @@ fun Login(
                 Text(
                     text = stringResource(id = R.string.login),
                     color = md_theme_light_onPrimary,
-                    modifier = Modifier.padding(16.dp)
+                    modifier = Modifier.padding(16.dp),
+                    fontSize = 18.sp
+
                 )
                 
             }
@@ -145,7 +146,7 @@ fun Login(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
-                    .padding(0.5.dp)
+                    .padding(0.2.dp)
             ){
                 Text(
                     text = stringResource(id = R.string.dont_have)
@@ -155,7 +156,9 @@ fun Login(
                 ) {
                     Text(
                         text = stringResource(id = R.string.click),
-                        color = MaterialTheme.colorScheme.primary
+                        color = MaterialTheme.colorScheme.primary,
+                       fontWeight = FontWeight.Bold,
+                        fontSize = 14.sp
                     )
                 }
             }

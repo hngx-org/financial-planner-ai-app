@@ -175,6 +175,7 @@ fun SignupScreen(
                     }
                     withStyle(style = SpanStyle(color = Color.Blue, fontSize = 16.sp)) {
                         append("Terms of conditions\n")
+                        Modifier.clickable { navController.navigate("terms&conditions") }
                     }
                     withStyle(
                         style = SpanStyle(
@@ -186,6 +187,7 @@ fun SignupScreen(
                     }
                     withStyle(style = SpanStyle(color = Color.Blue, fontSize = 16.sp)) {
                         append("Privacy Policy")
+                        Modifier.clickable { navController.navigate("privacy_policy") }
                     }
                 },
                 fontSize = 16.sp,
@@ -193,7 +195,7 @@ fun SignupScreen(
                     .padding(top = 20.dp)
                     .padding(bottom = 20.dp)
                     .padding(8.dp)
-                    .clickable { navController.navigate("terms&conditions") },
+                   .clickable { navController.navigate("terms&conditions") },
                 color = MaterialTheme.colorScheme.primary
             )
         }
@@ -201,7 +203,7 @@ fun SignupScreen(
             onClick = {
                 if (termsAccepted) {
                     //navigate
-                    navController.navigate("HomeScreen")
+
                 }
             },
             modifier = Modifier
@@ -218,7 +220,7 @@ fun SignupScreen(
             onClick = {
                       if (termsAccepted){
                           //navigate
-                          navController.navigate("terms&conditions")
+                          navController.navigate("HomeScreen")
 
                       }
                       },
@@ -268,7 +270,9 @@ fun SignupScreen(
                     append(" Login")
                 }
             },
-            modifier = Modifier.padding(20.dp)
+            modifier = Modifier
+                .padding(20.dp)
+                .clickable { navController.navigate("login") }
         )
     }
     if (showDialog) {
