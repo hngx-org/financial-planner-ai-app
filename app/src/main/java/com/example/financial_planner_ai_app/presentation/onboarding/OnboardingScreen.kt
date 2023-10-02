@@ -21,6 +21,7 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,20 +32,57 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.financial_planner_ai_app.R
 import com.example.financial_planner_ai_app.presentation.onboarding.components.OnBoardingButton
 import com.example.financial_planner_ai_app.presentation.onboarding.components.Page
 import com.example.financial_planner_ai_app.presentation.theme.FinancialplanneraiappTheme
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
+
 fun OnboardingScreen() {
+
+fun OnboardingScreen(
+    navController: NavController,
+    viewModel: OnboardingViewModel = hiltViewModel()
+) {
+
+    LaunchedEffect(key1 = true) {
+        viewModel.onboardingFlow.collectLatest { event ->
+            when (event) {
+                OnboardingUiEvents.NavigateToLogin -> {
+                    navController.navigate("login") {
+                        popUpTo("onboarding_screen") {
+                            inclusive = true
+                        }
+                    }
+                }
+
+                OnboardingUiEvents.NavigateToSignUp -> {
+                    navController.navigate("signup") {
+                        popUpTo("onboarding_screen") {
+                            inclusive = true
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    OnboardingScreenContent(onEvent = viewModel::onEvent)
+
 
 }
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun OnboardingScreenContent(
+
     navController:NavController
+
+    onEvent: (OnboardingEvents) -> Unit
+
 ) {
 
     val pageCount = 3
@@ -58,10 +96,20 @@ fun OnboardingScreenContent(
     ) {
 
         item {
+
             OutlinedButton(
                 onClick = {navController.navigate("login")},
                 modifier = Modifier.padding(start = 16.dp)) {
                 Text(text = "Skip", fontWeight = FontWeight.Bold)
+
+            AnimatedVisibility(visible = pagerState.currentPage == 0) {
+                OutlinedButton(
+                    onClick = { onEvent(OnboardingEvents.OnSkipClicked) },
+                    modifier = Modifier.padding(start = 16.dp)
+                ) {
+                    Text(text = "Skip", fontWeight = FontWeight.Bold)
+                }
+
             }
         }
 
@@ -93,7 +141,6 @@ fun OnboardingScreenContent(
                                 description = "Use AI to generate instant insights, future predictions & actionable tips.")
                         }
                     }
-
                 }
 
                 Row(
@@ -119,10 +166,19 @@ fun OnboardingScreenContent(
             }
         }
         item {
+
             OnBoardingButton(
                 onClick = {navController.navigate("login")},
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
+
+            AnimatedVisibility(visible = pagerState.currentPage == 2) {
+                OnBoardingButton(
+                    onClick = { onEvent(OnboardingEvents.OnBeginClicked) },
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                )
+            }
+
         }
 
     }
@@ -135,8 +191,11 @@ fun OnboardingScreenPreview() {
         Surface(
             modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
         ) {
+
             val navController = rememberNavController()
             OnboardingScreenContent(navController)
+
+
         }
     }
 }

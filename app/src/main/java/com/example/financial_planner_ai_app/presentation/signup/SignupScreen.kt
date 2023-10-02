@@ -195,7 +195,9 @@ fun SignupScreen(
                     .padding(top = 20.dp)
                     .padding(bottom = 20.dp)
                     .padding(8.dp)
+
                    .clickable { navController.navigate("terms&conditions") },
+
                 color = MaterialTheme.colorScheme.primary
             )
         }
@@ -204,6 +206,7 @@ fun SignupScreen(
                 if (termsAccepted) {
                     //navigate
 
+                    navController.navigate("HomeScreen")
                 }
             },
             modifier = Modifier
@@ -220,7 +223,9 @@ fun SignupScreen(
             onClick = {
                       if (termsAccepted){
                           //navigate
+
                           navController.navigate("HomeScreen")
+
 
                       }
                       },

@@ -156,9 +156,12 @@ fun Login(
                 ) {
                     Text(
                         text = stringResource(id = R.string.click),
+
                         color = MaterialTheme.colorScheme.primary,
                        fontWeight = FontWeight.Bold,
                         fontSize = 14.sp
+                        color = MaterialTheme.colorScheme.primary
+
                     )
                 }
             }
