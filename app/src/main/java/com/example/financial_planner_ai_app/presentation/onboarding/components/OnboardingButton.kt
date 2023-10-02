@@ -1,6 +1,7 @@
 package com.example.financial_planner_ai_app.presentation.onboarding.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -19,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -47,22 +49,23 @@ fun OnBoardingButton(
             Text(
                 text = "Begin", fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(start = 16.dp),
-                fontSize = 18.sp,
+                fontSize = 16.sp,
                 color = MaterialTheme.colorScheme.onPrimary
             )
             Box(
                 modifier = Modifier
-                    .padding(end = 32.dp)
+                    .padding(end = 16.dp)
                     .clip(CircleShape)
-                    .background(MaterialTheme.colorScheme.primaryContainer)
-                    .size(45.dp),
+                    .background(Color.LightGray)
+                    .border(1.dp, MaterialTheme.colorScheme.onPrimary, CircleShape)
+                    .size(40.dp),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
                     imageVector = Icons.Outlined.ArrowRightAlt,
                     contentDescription = null,
-                    modifier = Modifier.size(26.dp),
-                    tint = MaterialTheme.colorScheme.onPrimaryContainer
+                    modifier = Modifier.size(24.dp),
+                    tint = MaterialTheme.colorScheme.primary
                 )
             }
         }
