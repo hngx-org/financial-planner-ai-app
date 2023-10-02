@@ -1,6 +1,5 @@
 package com.example.financial_planner_ai_app.presentation.onboarding
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -29,9 +28,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.financial_planner_ai_app.R
 import com.example.financial_planner_ai_app.presentation.onboarding.components.OnBoardingButton
 import com.example.financial_planner_ai_app.presentation.onboarding.components.Page
@@ -39,6 +40,9 @@ import com.example.financial_planner_ai_app.presentation.theme.Financialplannera
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
+
+fun OnboardingScreen() {
+
 fun OnboardingScreen(
     navController: NavController,
     viewModel: OnboardingViewModel = hiltViewModel()
@@ -68,12 +72,17 @@ fun OnboardingScreen(
 
     OnboardingScreenContent(onEvent = viewModel::onEvent)
 
+
 }
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun OnboardingScreenContent(
+
+    navController:NavController
+
     onEvent: (OnboardingEvents) -> Unit
+
 ) {
 
     val pageCount = 3
@@ -87,6 +96,12 @@ fun OnboardingScreenContent(
     ) {
 
         item {
+
+            OutlinedButton(
+                onClick = {navController.navigate("login")},
+                modifier = Modifier.padding(start = 16.dp)) {
+                Text(text = "Skip", fontWeight = FontWeight.Bold)
+
             AnimatedVisibility(visible = pagerState.currentPage == 0) {
                 OutlinedButton(
                     onClick = { onEvent(OnboardingEvents.OnSkipClicked) },
@@ -94,6 +109,7 @@ fun OnboardingScreenContent(
                 ) {
                     Text(text = "Skip", fontWeight = FontWeight.Bold)
                 }
+
             }
         }
 
@@ -112,22 +128,17 @@ fun OnboardingScreenContent(
                         0 -> {
                             Page(
                                 imageId = R.drawable.finance_ai,
-                                description = "Introducing you to your finance buddy!"
-                            )
+                                description = "Introducing you to your finance buddy!")
                         }
 
                         1 -> {
-                            Page(
-                                imageId = R.drawable.financial_analysis,
-                                description = "Let's dive into financial planning together."
-                            )
+                            Page( imageId = R.drawable.financial_analysis,
+                                description = "Let's dive into financial planning together.")
                         }
 
                         2 -> {
-                            Page(
-                                imageId = R.drawable.financial_chart,
-                                description = "Use AI to generate instant insights, future predictions & actionable tips."
-                            )
+                            Page(imageId = R.drawable.financial_chart,
+                                description = "Use AI to generate instant insights, future predictions & actionable tips.")
                         }
                     }
                 }
@@ -155,12 +166,19 @@ fun OnboardingScreenContent(
             }
         }
         item {
+
+            OnBoardingButton(
+                onClick = {navController.navigate("login")},
+                modifier = Modifier.padding(horizontal = 16.dp)
+            )
+
             AnimatedVisibility(visible = pagerState.currentPage == 2) {
                 OnBoardingButton(
                     onClick = { onEvent(OnboardingEvents.OnBeginClicked) },
                     modifier = Modifier.padding(horizontal = 16.dp)
                 )
             }
+
         }
 
     }
@@ -174,7 +192,10 @@ fun OnboardingScreenPreview() {
             modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
         ) {
 
-            OnboardingScreenContent(onEvent = {})
+            val navController = rememberNavController()
+            OnboardingScreenContent(navController)
+
+
         }
     }
 }

@@ -45,7 +45,9 @@ fun FinanceNavHost(
             Login(
                 onLoginClick = { navController.navigate("HomeScreen")
                 },
-                onSignUpClick = {navController.navigate("privacy_policy")},
+
+                onSignUpClick = {navController.navigate("signup")},
+
                 loginViewModel = loginViewModel
             )
         }
