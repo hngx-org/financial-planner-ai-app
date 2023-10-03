@@ -42,8 +42,16 @@ fun SplashScreen(
                     }
                 }
 
-                SplashUiEvents.SkipOnboarding -> {
+                SplashUiEvents.NavigateToHome -> {
                     navController.navigate(Destinations.HomeScreen.route) {
+                        popUpTo(Destinations.SplashScreen.route) {
+                            inclusive = true
+                        }
+                    }
+                }
+
+                SplashUiEvents.NavigateToLogin -> {
+                    navController.navigate(Destinations.LoginScreen.route) {
                         popUpTo(Destinations.SplashScreen.route) {
                             inclusive = true
                         }

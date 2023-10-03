@@ -30,7 +30,8 @@ fun Page(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier,
+        modifier = modifier
+            .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
