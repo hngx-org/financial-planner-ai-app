@@ -22,13 +22,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.financial_planner_ai_app.presentation.navigation.Destinations
 
 @Composable
 fun PaymentScreen(
     modifier: Modifier = Modifier,
-    paymentViewModel: PaymentViewModel,
+    paymentViewModel: PaymentViewModel = hiltViewModel(),
     navController: NavController
 ) {
     val paymentScreenUiState by paymentViewModel.paymentScreenUiState.collectAsState()
@@ -38,7 +40,7 @@ fun PaymentScreen(
     ) {
         Row(
             modifier = Modifier.fillMaxWidth()
-        ){
+        ) {
             Text(
                 text = "Hello Eliud, ",
                 fontSize = 30.sp,
@@ -58,7 +60,7 @@ fun PaymentScreen(
                 .padding(bottom = 10.dp)
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
-        ){
+        ) {
             Card(
                 modifier = Modifier
                     .height(80.dp)
@@ -89,7 +91,7 @@ fun PaymentScreen(
             fontSize = 20.sp
         )
         Button(
-            onClick = {navController.navigate("login")},
+            onClick = { navController.navigate(Destinations.LoginScreen.route) },
             modifier = Modifier
                 .padding(15.dp)
                 .height(50.dp)
@@ -130,7 +132,7 @@ fun PaymentScreen(
         )
 
         Button(
-            onClick = {navController.navigate("login") },
+            onClick = { navController.navigate(Destinations.LoginScreen.route) },
             modifier = Modifier
                 .fillMaxWidth(0.7f)
                 .height(50.dp)

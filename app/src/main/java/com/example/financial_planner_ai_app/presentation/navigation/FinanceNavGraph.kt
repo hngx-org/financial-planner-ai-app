@@ -4,83 +4,60 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import com.example.financial_planner_ai_app.presentation.history.HistoryScreen
 import com.example.financial_planner_ai_app.presentation.homeScreen.HomeScreen
-import com.example.financial_planner_ai_app.presentation.homeScreen.HomeScreenViewModel
-import com.example.financial_planner_ai_app.presentation.login.Login
-import com.example.financial_planner_ai_app.presentation.login.LoginViewModel
-import com.example.financial_planner_ai_app.presentation.onboarding.OnboardingScreenContent
+import com.example.financial_planner_ai_app.presentation.onboarding.OnboardingScreen
 import com.example.financial_planner_ai_app.presentation.payment.PaymentScreen
-import com.example.financial_planner_ai_app.presentation.payment.PaymentViewModel
 import com.example.financial_planner_ai_app.presentation.privacypolicy.PrivacyPolicyScreen
 import com.example.financial_planner_ai_app.presentation.signup.SignupScreen
-import com.example.financial_planner_ai_app.presentation.signup.SignupViewModel
 import com.example.financial_planner_ai_app.presentation.splash.SplashScreen
-import com.example.financial_planner_ai_app.presentation.termsandconditions.TermsOfConditionsScreen
+import com.example.financial_planner_ai_app.ui.login_screen.LoginScreen
 
 
 @Composable
-fun FinanceNavHost(
-    navHostController: NavHostController
-){
-    val navController = rememberNavController()
-    val signupViewModel = SignupViewModel()
-    val homeScreenViewModel = HomeScreenViewModel()
-    val paymentViewModel = PaymentViewModel()
-    val loginViewModel = LoginViewModel()
+fun FinanceAIAppNavHost(
+    navController: NavHostController
+) {
+
     NavHost(
         navController = navController,
-        startDestination = "splashscreen"
-    ){
-        composable(route = "splashscreen"){
+        startDestination = Destinations.SplashScreen.route
+    ) {
+        composable(route = Destinations.SplashScreen.route) {
             SplashScreen(navController = navController)
         }
 
-        composable(route = "onBoardingScreenContent"){
-            OnboardingScreenContent(navController)
+        composable(route = Destinations.OnboardingScreen.route) {
+            OnboardingScreen(navController = navController)
         }
 
-        composable(route = "login"){
-            Login(
-                onLoginClick = { navController.navigate("HomeScreen")
-                },
-
-                onSignUpClick = {navController.navigate("signup")},
-
-                loginViewModel = loginViewModel
-            )
+        composable(route = Destinations.LoginScreen.route) {
+            LoginScreen(navController = navController)
         }
 
-        composable(route = "privacy_policy"){
+        composable(route = Destinations.PrivacyPolicy.route) {
             PrivacyPolicyScreen(navController)
         }
 
-        composable(route = "signup"){
-            SignupScreen(
-                signupViewModel = signupViewModel,
-                navController = navController)
+        composable(route = Destinations.SignUpScreen.route) {
+            SignupScreen(navController = navController)
         }
 
-        composable(route = "terms&conditions"){
-            TermsOfConditionsScreen(
-                onTermClick = {navController.navigate("signup")},
-                navController = navController
-            )
+//        composable(route = "terms&conditions") {
+//            TermsOfConditionsScreen(
+//                onTermClick = { navController.navigate("signup") },
+//                navController = navController
+//            )
+//        }
+
+        composable(route = Destinations.HomeScreen.route) {
+            HomeScreen(navController = navController)
         }
 
-        composable(route = "HomeScreen"){
-            HomeScreen(
-                homeScreenViewModel = homeScreenViewModel,
-                navController = navController)
+        composable(route = Destinations.Payments.route) {
+            PaymentScreen(navController = navController)
         }
-
-        composable(route = "payment_screen"){
-            PaymentScreen(
-                paymentViewModel = paymentViewModel,
-                navController = navController )
-        }
-        composable(route = "history_screen"){
+        composable(route = Destinations.History.route) {
             HistoryScreen()
         }
     }
