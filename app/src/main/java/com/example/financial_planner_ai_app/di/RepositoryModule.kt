@@ -1,16 +1,26 @@
 package com.example.financial_planner_ai_app.di
 
-import com.example.financial_planner_ai_app.data.repository.AuthenticationRepository
-import dagger.Binds
+import android.content.Context
+import com.example.financial_planner_ai_app.data.repository.AuthenticationRepo
+import com.example.financial_planner_ai_app.data.repository.FormValidationRepo
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class RepositoryModule {
+object RepositoryModule {
 
-    @Binds
-    abstract fun provideAuthenticationRepository(authenticationRepository: AuthenticationRepository): AuthenticationRepository
+    @Singleton
+    @Provides
+    fun providesAuthRepo(@ApplicationContext context: Context) = AuthenticationRepo(context)
+
+    @Singleton
+    @Provides
+    fun providesFormValidationRepo() = FormValidationRepo()
+
 
 }

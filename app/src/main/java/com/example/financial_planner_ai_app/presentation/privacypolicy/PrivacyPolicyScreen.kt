@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.financial_planner_ai_app.presentation.navigation.Destinations
 
 @Composable
 fun PrivacyPolicyScreen(
@@ -44,7 +45,7 @@ fun PrivacyPolicyScreen(
                 .padding(start = 20.dp)
         )
         Button(
-            onClick = {navController.navigate("signup") },
+            onClick = {navController.navigate(Destinations.SignUpScreen.route) },
             modifier = Modifier
                 .padding(20.dp)
                 .height(60.dp)

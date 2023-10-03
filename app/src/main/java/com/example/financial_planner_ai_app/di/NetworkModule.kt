@@ -1,17 +1,14 @@
 package com.example.financial_planner_ai_app.di
 
-import com.example.financial_planner_ai_app.data.remote.OpenApiService
-import com.example.financial_planner_ai_app.util.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
+
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -35,15 +32,15 @@ object NetworkModule {
             .build()
     }
 
-    @Provides
-    @Singleton
-    fun providesOpenApiService(client: OkHttpClient): OpenApiService {
-        return Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(OpenApiService::class.java)
-    }
+//    @Provides
+//    @Singleton
+//    fun providesOpenApiService(client: OkHttpClient): ApiService {
+//        return Retrofit.Builder()
+//            .baseUrl(BASE_URL)
+//            .client(client)
+//            .addConverterFactory(GsonConverterFactory.create())
+//            .build()
+//            .create(ApiService::class.java)
+//    }
 
 }

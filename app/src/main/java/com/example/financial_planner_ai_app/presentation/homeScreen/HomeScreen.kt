@@ -33,13 +33,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.financial_planner_ai_app.presentation.navigation.Destinations
 
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    homeScreenViewModel: HomeScreenViewModel,
+    homeScreenViewModel: HomeScreenViewModel = hiltViewModel(),
     navController: NavController
 ) {
     var expanded by remember { mutableStateOf(false) }
@@ -74,11 +76,11 @@ fun HomeScreen(
             ) {
                 DropdownMenuItem(
                     text = { Text("History") },
-                    onClick = {navController.navigate("history_screen") }
+                    onClick = {navController.navigate(Destinations.History.route) }
                 )
                 DropdownMenuItem(
                     text = { Text("Subscription") },
-                    onClick = { navController.navigate("payment_screen")}
+                    onClick = { navController.navigate(Destinations.Payments.route)}
                 )
             }
         }
