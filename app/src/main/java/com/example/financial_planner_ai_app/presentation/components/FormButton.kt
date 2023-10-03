@@ -31,7 +31,7 @@ fun FormButton(
             containerColor = containerColor,
             contentColor = contentColor
         ),
-        contentPadding = PaddingValues(vertical = 8.dp)
+        contentPadding = PaddingValues(vertical = 16.dp)
     ) {
         Text(text = label, fontWeight = FontWeight.Bold, fontSize = 16.sp)
     }

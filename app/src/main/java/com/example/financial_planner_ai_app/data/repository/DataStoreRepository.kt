@@ -4,6 +4,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
+import com.example.financial_planner_ai_app.data.local.LOGGED_IN_KEY
 import com.example.financial_planner_ai_app.data.local.ON_BOARDING_KEY
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -29,6 +30,25 @@ class DataStoreRepository(
                 }
             }.map { preferences ->
                 preferences[ON_BOARDING_KEY] ?: false
+            }
+    }
+
+    suspend fun saveLoggedInStatus(loggedIn: Boolean) {
+        userPreferenceStore.edit { preferences ->
+            preferences[LOGGED_IN_KEY] = loggedIn
+        }
+    }
+
+    fun readLoggedInStatus(): Flow<Boolean> {
+        return userPreferenceStore.data
+            .catch { exception ->
+                if (exception is Exception) {
+                    emit(emptyPreferences())
+                } else {
+                    throw exception
+                }
+            }.map { preferences ->
+                preferences[LOGGED_IN_KEY] ?: false
             }
     }
 }

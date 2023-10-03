@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.financial_planner_ai_app.data.repository.DataStoreRepository
 import com.example.financial_planner_ai_app.presentation.splash.SplashUiEvents
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -36,31 +37,36 @@ class OnboardingViewModel @Inject constructor(
     fun onEvent(event: OnboardingEvents) {
         when (event) {
             OnboardingEvents.OnBeginClicked -> {
-                viewModelScope.launch {
+                viewModelScope.launch(Dispatchers.IO) {
+                    dataStoreRepository.saveOnboardingState(true)
                     _onboardingFlow.emit(OnboardingUiEvents.NavigateToSignUp)
                 }
             }
 
             OnboardingEvents.OnSkipClicked -> {
-                viewModelScope.launch {
-                    viewModelScope.launch {
-                        _onboardingFlow.emit(OnboardingUiEvents.NavigateToLogin)
-                    }
+                viewModelScope.launch(Dispatchers.IO) {
+                    dataStoreRepository.saveOnboardingState(true)
+                    _onboardingFlow.emit(OnboardingUiEvents.NavigateToLogin)
                 }
             }
         }
     }
 
-    fun readOnboardingState() {
-        viewModelScope.launch {
+    private fun readOnboardingState() {
+        viewModelScope.launch(Dispatchers.IO) {
             _state.update {
                 it.copy(
-                    isOnboarded = dataStoreRepository.readOnboardingState().stateIn(this).value
+                    isOnboarded = dataStoreRepository.readOnboardingState().stateIn(this).value,
+                    isLoggedIn = dataStoreRepository.readLoggedInStatus().stateIn(this).value
                 )
             }
             delay(3000)
             if (_state.value.isOnboarded) {
-                _splashFlow.emit(SplashUiEvents.SkipOnboarding)
+                if (_state.value.isLoggedIn) {
+                    _splashFlow.emit(SplashUiEvents.NavigateToHome)
+                } else {
+                    _splashFlow.emit(SplashUiEvents.NavigateToLogin)
+                }
             } else {
                 _splashFlow.emit(SplashUiEvents.BeginOnboarding)
             }
