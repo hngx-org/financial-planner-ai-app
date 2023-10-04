@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.financial_planner_ai_app.presentation.navigation.BottomBarDestination
 import com.example.financial_planner_ai_app.presentation.navigation.Destinations
 
 @Composable
@@ -76,11 +77,11 @@ fun HomeScreen(
             ) {
                 DropdownMenuItem(
                     text = { Text("History") },
-                    onClick = {navController.navigate(Destinations.History.route) }
+                    onClick = {navController.navigate(BottomBarDestination.History.route) }
                 )
                 DropdownMenuItem(
                     text = { Text("Subscription") },
-                    onClick = { navController.navigate(Destinations.Payments.route)}
+                    onClick = { navController.navigate(BottomBarDestination.Payments.route)}
                 )
             }
         }

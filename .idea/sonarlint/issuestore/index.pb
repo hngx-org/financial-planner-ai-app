@@ -3,8 +3,6 @@
 	README.md,8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 Š
 Zapp/src/main/java/com/example/financial_planner_ai_app/presentation/splash/SplashScreen.kt,6/9/69ab771170e541fb1f0235624d02a06fb27c6164
-‘
-aapp/src/main/java/com/example/financial_planner_ai_app/presentation/login/components/LottieAtm.kt,e/c/ec68acc16874a44175240a339f88d5e6f73a395c
 ˆ
 Xapp/src/main/java/com/example/financial_planner_ai_app/presentation/login/loginScreen.kt,3/8/38d2d279e194f32f2ea55b634b3dccbbe08269f9
 v
@@ -31,12 +29,8 @@ Rapp/src/main/java/com/example/financial_planner_ai_app/presentation/theme/Theme
 Zapp/src/main/java/com/example/financial_planner_ai_app/presentation/signup/SignupScreen.kt,a/a/aa9e854dbdde39060ee16c209e7837d78444dd21
 ~
 Napp/src/main/java/com/example/financial_planner_ai_app/data/local/DataStore.kt,5/e/5ea37a2bf18c06eb1fb85babfb1949103a4a3198
-„
-Tapp/src/main/java/com/example/financial_planner_ai_app/data/remote/OpenApiService.kt,f/a/faa55aa13b2510cb3cfc9f58347c9536fe0ce5ee
 }
 Mapp/src/main/java/com/example/financial_planner_ai_app/di/RepositoryModule.kt,8/d/8d5a422c8f802d7268c3a767b41b29781af9542b
-‚
-Rapp/src/main/java/com/example/financial_planner_ai_app/data/model/ErrorResponse.kt,8/d/8d0639918b4598b7a34f17c339bea72d7be510b3
 w
 Gapp/src/main/java/com/example/financial_planner_ai_app/util/Resource.kt,f/4/f42cd0f895cb67d2e08e90ea486d5d8c8714ac91
 ‘
@@ -45,10 +39,6 @@ aapp/src/main/java/com/example/financial_planner_ai_app/presentation/login/Login
 Zapp/src/main/java/com/example/financial_planner_ai_app/presentation/login/LoginUiEvents.kt,1/d/1dc7d8ca77834304b3c0149cdcfdf7f7ac6190c9
 ˆ
 Xapp/src/main/java/com/example/financial_planner_ai_app/presentation/login/LoginEvents.kt,b/e/be2f844dfd1b5628ad4c434b94811fad5b37f778
-’
-bapp/src/main/java/com/example/financial_planner_ai_app/data/repository/AuthenticationRepository.kt,6/7/67f961315946b1f066cf91ec0c88f048692388ea
-—
-gapp/src/main/java/com/example/financial_planner_ai_app/presentation/navigation/NavigationDestination.kt,1/c/1ccb205f6aa7e17f2fd3a461b222105c7050e9fd
 ‘
 aapp/src/main/java/com/example/financial_planner_ai_app/presentation/navigation/FinanceNavGraph.kt,4/b/4b3805606ff81981cfd01868f191db24c8663fc3
 ’

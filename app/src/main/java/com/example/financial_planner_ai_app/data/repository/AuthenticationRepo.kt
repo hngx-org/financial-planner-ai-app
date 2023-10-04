@@ -9,7 +9,7 @@ import com.shegs.hng_auth_library.model.SignupRequest
 import com.shegs.hng_auth_library.network.ApiResponse
 
 class AuthenticationRepo(
-    private val context: Context
+    context: Context
 ) {
     private val apiService = AuthLibrary.createAuthService()
     private val authDataStoreRepository = AuthLibrary.createDataStoreRepository(context)

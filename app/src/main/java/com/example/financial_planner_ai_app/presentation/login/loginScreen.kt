@@ -91,7 +91,7 @@ fun LoginScreen(
                 }
 
                 LoginUiEvents.NavigateToHome -> {
-                    navController.navigate(Destinations.HomeScreen.route) {
+                    navController.navigate(Destinations.BottomNavGraph.route) {
                         popUpTo(Destinations.LoginScreen.route) {
                             inclusive = true
                         }

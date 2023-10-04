@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.financial_planner_ai_app.R
+import com.example.financial_planner_ai_app.presentation.navigation.BottomBarDestination
 import com.example.financial_planner_ai_app.presentation.navigation.Destinations
 import com.example.financial_planner_ai_app.presentation.onboarding.OnboardingViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -43,7 +44,7 @@ fun SplashScreen(
                 }
 
                 SplashUiEvents.NavigateToHome -> {
-                    navController.navigate(Destinations.HomeScreen.route) {
+                    navController.navigate(Destinations.BottomNavGraph.route) {
                         popUpTo(Destinations.SplashScreen.route) {
                             inclusive = true
                         }
