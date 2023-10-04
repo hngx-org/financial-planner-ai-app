@@ -7,6 +7,6 @@ import androidx.room.PrimaryKey
 data class InteractionRecord(
     @PrimaryKey(autoGenerate = true)
     val interactionId: Int? = null,
-    val userInput: String,
+    val prompt: String,
     val aiResponse: String
 )

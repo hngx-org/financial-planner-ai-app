@@ -2,8 +2,10 @@ package com.example.financial_planner_ai_app.presentation.homeScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.financial_planner_ai_app.data.local.model.InteractionRecord
 import com.example.financial_planner_ai_app.data.repository.AuthenticationRepo
 import com.example.financial_planner_ai_app.data.repository.DataStoreRepository
+import com.example.financial_planner_ai_app.data.repository.DatabaseRepository
 import com.example.financial_planner_ai_app.data.repository.OpenAiRepository
 import com.example.financial_planner_ai_app.util.Resource
 import com.shegs.hng_auth_library.network.ApiResponse
@@ -24,7 +26,8 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val authenticationRepo: AuthenticationRepo,
     private val dataStoreRepository: DataStoreRepository,
-    private val openAiRepository: OpenAiRepository
+    private val openAiRepository: OpenAiRepository,
+    private val databaseRepository: DatabaseRepository
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(HomeUiState())
@@ -34,6 +37,7 @@ class HomeViewModel @Inject constructor(
     val eventFlow = _eventFlow.asSharedFlow()
 
     init {
+        getUserId()
         getUserData()
     }
 
@@ -55,15 +59,30 @@ class HomeViewModel @Inject constructor(
             HomeEvents.OnGenerateChatResponse -> {
                 generateChatResponse(_state.value.prompt)
             }
+
+            HomeEvents.OnSaveInteraction -> {
+                saveInteraction()
+            }
         }
     }
 
-    fun generateChatResponse(userPrompt: String) {
+    private fun saveInteraction() {
+        viewModelScope.launch(Dispatchers.IO) {
+            databaseRepository.addInteraction(
+                InteractionRecord(
+                    prompt = _state.value.prompt,
+                    aiResponse = _state.value.aiResponse
+                )
+            )
+        }
+    }
+
+    private fun generateChatResponse(userPrompt: String) {
         viewModelScope.launch(Dispatchers.IO) {
             _state.update { it.copy(showResponseCard = false) }
             openAiRepository.generateChatResponse(
                 userPrompt,
-                authenticationRepo.getUserId().stateIn(this).value
+                _state.value.userId
             ).onEach { result ->
                 when (result) {
                     is Resource.Error -> {
@@ -86,6 +105,12 @@ class HomeViewModel @Inject constructor(
                     }
                 }
             }.launchIn(this)
+        }
+    }
+
+    private fun getUserId() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _state.update { it.copy(userId = authenticationRepo.getUserId().stateIn(this).value) }
         }
     }
 
