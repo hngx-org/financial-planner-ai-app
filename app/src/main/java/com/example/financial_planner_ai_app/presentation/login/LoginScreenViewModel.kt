@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginScreenViewModel @Inject constructor(
-    private val authRepo: AuthenticationRepo,
+    private val authenticationRepo: AuthenticationRepo,
     private val formValidationRepo: FormValidationRepo,
     private val dataStoreRepository: DataStoreRepository
 ) : ViewModel() {
@@ -89,15 +89,17 @@ class LoginScreenViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             _state.update { it.copy(loading = true) }
             delay(3000)
-            when (val result = authRepo.login(loginRequest)) {
+            val response = authenticationRepo.login(loginRequest)
+            when (response) {
                 is ApiResponse.Error -> {
                     _state.update { it.copy(loading = false) }
-                    _eventFlow.emit(LoginUiEvents.ShowSnackBar(result.message))
+                    _eventFlow.emit(LoginUiEvents.ShowSnackBar(response.message))
                 }
 
                 is ApiResponse.Success -> {
                     _state.update { it.copy(loading = false) }
                     dataStoreRepository.saveLoggedInStatus(true)
+                    authenticationRepo.saveUserId(response.data.data.id)
                     _eventFlow.emit(LoginUiEvents.ShowSnackBar("Success"))
                     delay(1500)
                     _eventFlow.emit(LoginUiEvents.NavigateToHome)

@@ -54,7 +54,7 @@ android {
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.10.0")
+    implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("androidx.activity:activity-compose:1.7.2")
     implementation(platform("androidx.compose:compose-bom:2023.08.00"))
@@ -64,7 +64,10 @@ dependencies {
     implementation("androidx.compose.material3:material3")
 
     //Authentication lib
-    implementation ("com.github.hngx-org:mirage-kotlin-auth-library:2.0.0")
+    implementation("com.github.hngx-org:mirage-kotlin-auth-library:2.0.0")
+
+    //Open AI lib
+    implementation("com.github.hngx-org:openai-api-library:0.1.3")
 
     //Icons Extended
     implementation("androidx.compose.material:material-icons-extended")
