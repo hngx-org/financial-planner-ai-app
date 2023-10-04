@@ -25,14 +25,18 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.financial_planner_ai_app.presentation.homeScreen.HomeUiState
+import com.example.financial_planner_ai_app.presentation.homeScreen.HomeViewModel
 import com.example.financial_planner_ai_app.presentation.navigation.Destinations
 
 @Composable
 fun PaymentScreen(
     modifier: Modifier = Modifier,
     paymentViewModel: PaymentViewModel = hiltViewModel(),
-    navController: NavController
+    navController: NavController,
+    viewModel: HomeViewModel
 ) {
+    val state = viewModel.state.collectAsState().value
     val paymentScreenUiState by paymentViewModel.paymentScreenUiState.collectAsState()
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -42,7 +46,7 @@ fun PaymentScreen(
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(
-                text = "Hello Eliud, ",
+                text = "Hello ${state.userData.name}",
                 fontSize = 30.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(start = 20.dp),
@@ -154,6 +158,7 @@ fun PaymentScreenPreview() {
     val navController = rememberNavController()
     PaymentScreen(
         paymentViewModel = PaymentViewModel(),
-        navController = navController
+        navController = navController,
+        viewModel = hiltViewModel()
     )
 }
