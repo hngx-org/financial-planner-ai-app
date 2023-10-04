@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Save
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -27,13 +28,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.financial_planner_ai_app.presentation.components.InteractionCard
 import com.example.financial_planner_ai_app.presentation.homeScreen.HomeEvents
 import com.example.financial_planner_ai_app.presentation.homeScreen.HomeUiEvents
 import com.example.financial_planner_ai_app.presentation.homeScreen.HomeUiState
 import com.example.financial_planner_ai_app.presentation.homeScreen.HomeViewModel
 import com.example.financial_planner_ai_app.presentation.homeScreen.components.HomeTopBar
 import com.example.financial_planner_ai_app.presentation.homeScreen.components.ProfileCard
-import com.example.financial_planner_ai_app.presentation.homeScreen.components.ResponseCard
 import com.example.financial_planner_ai_app.presentation.navigation.Destinations
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -119,11 +120,13 @@ fun HomeScreenContent(
 
             item {
                 AnimatedVisibility(visible = state.showResponseCard) {
-                    ResponseCard(
+                    InteractionCard(
+                        prompt = state.prompt,
                         response = state.aiResponse,
+                        icon = Icons.Filled.Save,
+                        onIconClick = { onEvent(HomeEvents.OnSaveInteraction) },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(8.dp)
                     )
                 }
             }
