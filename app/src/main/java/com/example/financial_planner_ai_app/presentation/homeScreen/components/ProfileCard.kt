@@ -60,6 +60,12 @@ fun ProfileCard(
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold
                 )
+                Text(
+                    text = userData.created_at,
+                    color = MaterialTheme.colorScheme.onTertiaryContainer,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold
+                )
                 Spacer(modifier = Modifier.height(16.dp))
                 Row(
                     modifier = Modifier
@@ -91,18 +97,6 @@ fun ProfileCard(
                             fontWeight = FontWeight.SemiBold
                         )
                     }
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text(
-                            text = "CREATED AT",
-                            color = MaterialTheme.colorScheme.onTertiaryContainer,
-                            fontSize = 12.sp,
-                            fontWeight = FontWeight.ExtraLight
-                        )
-                        Text(
-                            text = userData.created_at,
-                            fontWeight = FontWeight.SemiBold
-                        )
-                    }
                 }
             }
         }
@@ -122,5 +116,5 @@ fun ProfileCard(
 @Preview
 @Composable
 fun ProfileCardPreview() {
-    ProfileCard(userData = HomeUiState().userData,onLogOut = {})
+    ProfileCard(userData = HomeUiState().userData, onLogOut = {})
 }

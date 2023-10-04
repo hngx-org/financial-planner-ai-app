@@ -39,13 +39,14 @@ fun HomeTopBar(
                 text = "Howdy there, ",
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.primary,
-                fontSize = 18.sp
+                fontSize = 26.sp
             )
             Text(
                 text = subject,
                 fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.inversePrimary,
-                fontStyle = FontStyle.Italic
+                fontStyle = FontStyle.Italic,
+                fontSize = 20.sp
             )
         }
         IconButton(onClick = onProfileClick, modifier = Modifier.align(Alignment.CenterEnd)) {

@@ -7,6 +7,7 @@ import com.shegs.hng_auth_library.model.LoginRequest
 import com.shegs.hng_auth_library.model.LogoutResponse
 import com.shegs.hng_auth_library.model.SignupRequest
 import com.shegs.hng_auth_library.network.ApiResponse
+import kotlinx.coroutines.flow.Flow
 
 class AuthenticationRepo(
     context: Context
@@ -32,6 +33,14 @@ class AuthenticationRepo(
 
     suspend fun getUserProfile() : ApiResponse<AuthResponse> {
         return profileRepo.profile()
+    }
+
+    fun getUserId() : Flow<String> {
+        return authDataStoreRepository.getUserID()
+    }
+
+    suspend fun saveUserId(userId: String) {
+        authDataStoreRepository.saveUserID(userId)
     }
 
 }

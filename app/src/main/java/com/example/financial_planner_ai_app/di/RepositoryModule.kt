@@ -1,8 +1,11 @@
 package com.example.financial_planner_ai_app.di
 
 import android.content.Context
+import com.example.financial_planner_ai_app.data.local.FinanceAIDatabase
 import com.example.financial_planner_ai_app.data.repository.AuthenticationRepo
+import com.example.financial_planner_ai_app.data.repository.DatabaseRepository
 import com.example.financial_planner_ai_app.data.repository.FormValidationRepo
+import com.example.financial_planner_ai_app.data.repository.OpenAiRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,5 +25,12 @@ object RepositoryModule {
     @Provides
     fun providesFormValidationRepo() = FormValidationRepo()
 
+    @Singleton
+    @Provides
+    fun providesOpenAiRepository() = OpenAiRepository()
+
+    @Singleton
+    @Provides
+    fun providesDatabaseRepository(financeAIDatabase: FinanceAIDatabase) = DatabaseRepository(financeAIDatabase)
 
 }

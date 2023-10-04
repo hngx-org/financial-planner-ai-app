@@ -33,6 +33,7 @@ import com.example.financial_planner_ai_app.presentation.homeScreen.HomeUiState
 import com.example.financial_planner_ai_app.presentation.homeScreen.HomeViewModel
 import com.example.financial_planner_ai_app.presentation.homeScreen.components.HomeTopBar
 import com.example.financial_planner_ai_app.presentation.homeScreen.components.ProfileCard
+import com.example.financial_planner_ai_app.presentation.homeScreen.components.ResponseCard
 import com.example.financial_planner_ai_app.presentation.navigation.Destinations
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -104,14 +105,26 @@ fun HomeScreenContent(
                     bottom = contentPadding.calculateBottomPadding()
                 ),
             contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.Bottom
+            verticalArrangement = Arrangement.SpaceBetween
         ) {
+
 
             item {
                 AnimatedVisibility(visible = state.loading) {
                     Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                         LinearProgressIndicator(color = MaterialTheme.colorScheme.inversePrimary)
                     }
+                }
+            }
+
+            item {
+                AnimatedVisibility(visible = state.showResponseCard) {
+                    ResponseCard(
+                        response = state.aiResponse,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(8.dp)
+                    )
                 }
             }
 
@@ -126,15 +139,16 @@ fun HomeScreenContent(
                 }
             }
 
+
             item {
                 OutlinedTextField(
-                    value = state.query,
+                    value = state.prompt,
                     onValueChange = { onEvent(HomeEvents.OnQueryChanged(it)) },
                     modifier = Modifier
                         .fillMaxWidth(),
                     shape = MaterialTheme.shapes.medium,
                     trailingIcon = {
-                        IconButton(onClick = { /*TODO*/ }) {
+                        IconButton(onClick = { onEvent(HomeEvents.OnGenerateChatResponse) }) {
                             Icon(imageVector = Icons.Filled.Send, contentDescription = null)
                         }
                     }
