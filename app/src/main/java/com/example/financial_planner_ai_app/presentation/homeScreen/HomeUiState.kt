@@ -16,6 +16,7 @@ data class HomeUiState(
     val showInteractionCard: Boolean = false,
     val prompt: String = "",
     val aiResponse: String = "",
+    val interactionTitle: String = "",
     val loading: Boolean = false,
     val userId: String = ""
 )

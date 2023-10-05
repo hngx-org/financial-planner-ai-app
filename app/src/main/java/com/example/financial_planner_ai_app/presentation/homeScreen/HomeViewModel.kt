@@ -58,6 +58,7 @@ class HomeViewModel @Inject constructor(
 
             HomeEvents.OnGenerateChatResponse -> {
                 generateChatResponse(_state.value.prompt)
+                _state.update { it.copy(interactionTitle = _state.value.prompt) }
             }
 
             HomeEvents.OnSaveInteraction -> {
@@ -70,7 +71,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             databaseRepository.addInteraction(
                 InteractionRecord(
-                    prompt = _state.value.prompt,
+                    prompt = _state.value.interactionTitle,
                     aiResponse = _state.value.aiResponse
                 )
             )

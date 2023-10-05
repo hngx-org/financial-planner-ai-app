@@ -57,9 +57,6 @@ class HistoryViewModel @Inject constructor(
                 findRecordByPrompt(_state.value.query)
             }
 
-            HistoryEvents.OnExpandRecord -> {
-                _state.update { it.copy(expandRecord = !_state.value.expandRecord) }
-            }
         }
     }
 
