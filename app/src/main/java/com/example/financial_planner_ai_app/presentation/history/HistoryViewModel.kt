@@ -37,7 +37,7 @@ class HistoryViewModel @Inject constructor(
         when (event) {
             is HistoryEvents.OnDeleteRecordClicked -> {
                 deleteRecord(event.record)
-                _state.update { it.copy(interactions = _state.value.interactions) }
+                loadAllRecords()
             }
 
             is HistoryEvents.OnQueryChanged -> {
@@ -55,6 +55,10 @@ class HistoryViewModel @Inject constructor(
 
             HistoryEvents.OnSearchClicked -> {
                 findRecordByPrompt(_state.value.query)
+            }
+
+            HistoryEvents.OnExpandRecord -> {
+                _state.update { it.copy(expandRecord = !_state.value.expandRecord) }
             }
         }
     }
@@ -74,7 +78,7 @@ class HistoryViewModel @Inject constructor(
 
                     is Resource.Loading -> {
                         _state.update { it.copy(loading = true) }
-                        delay(1500)
+                        delay(500)
                     }
 
                     is Resource.Success -> {
@@ -106,7 +110,7 @@ class HistoryViewModel @Inject constructor(
 
                     is Resource.Loading -> {
                         _state.update { it.copy(loading = true) }
-                        delay(1500)
+                        delay(500)
                     }
 
                     is Resource.Success -> {

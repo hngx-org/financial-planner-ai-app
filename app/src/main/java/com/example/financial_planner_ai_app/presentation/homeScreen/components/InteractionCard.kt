@@ -1,4 +1,4 @@
-package com.example.financial_planner_ai_app.presentation.components
+package com.example.financial_planner_ai_app.presentation.homeScreen.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
@@ -27,7 +27,7 @@ fun InteractionCard(
     prompt: String,
     response: String,
     icon: ImageVector,
-    onIconClick: () -> Unit,
+    onSave: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column {
@@ -36,7 +36,7 @@ fun InteractionCard(
             textAlign = TextAlign.Start,
             letterSpacing = 0.07.sp,
         )
-        Spacer(modifier = Modifier.height(2.dp))
+        Spacer(modifier = Modifier.height(3.dp))
         Surface(
             modifier = modifier,
             shape = MaterialTheme.shapes.medium,
@@ -53,7 +53,7 @@ fun InteractionCard(
                     fontSize = 20.sp,
                     fontFamily = FontFamily.Cursive,
                     textAlign = TextAlign.Center,
-                    letterSpacing = 0.07.sp ,
+                    letterSpacing = 0.07.sp,
                     color = MaterialTheme.colorScheme.onTertiary
                 )
             }
@@ -61,7 +61,7 @@ fun InteractionCard(
         Spacer(modifier = Modifier.height(6.dp))
         Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterEnd) {
             IconButton(
-                onClick = onIconClick,
+                onClick = onSave,
                 modifier = Modifier.padding(8.dp)
             ) {
                 Icon(imageVector = icon, contentDescription = null)

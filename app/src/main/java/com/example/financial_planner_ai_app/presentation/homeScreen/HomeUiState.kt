@@ -13,7 +13,7 @@ data class HomeUiState(
         updated_at = "N/A"
     ),
     val showUserProfile: Boolean = false,
-    val showResponseCard: Boolean = false,
+    val showInteractionCard: Boolean = false,
     val prompt: String = "",
     val aiResponse: String = "",
     val loading: Boolean = false,

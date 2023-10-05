@@ -98,7 +98,6 @@ class LoginScreenViewModel @Inject constructor(
 
                 is ApiResponse.Success -> {
                     _state.update { it.copy(loading = false) }
-                    dataStoreRepository.saveLoggedInStatus(true)
                     authenticationRepo.saveUserId(response.data.data.id)
                     _eventFlow.emit(LoginUiEvents.ShowSnackBar("Success"))
                     delay(1500)

@@ -3,6 +3,7 @@ package com.example.financial_planner_ai_app.data.local
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.financial_planner_ai_app.data.local.model.InteractionRecord
 
@@ -18,7 +19,7 @@ interface FinanceAIDao {
     @Query("SELECT * FROM interaction_records WHERE prompt LIKE :prompt")
     fun findInteractionByPrompt(prompt: String): List<InteractionRecord>
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertInteraction(interactionRecord: InteractionRecord)
 
     @Delete

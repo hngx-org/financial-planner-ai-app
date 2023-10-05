@@ -30,7 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.financial_planner_ai_app.presentation.components.InteractionCard
+import com.example.financial_planner_ai_app.presentation.history.components.RecordCard
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -111,13 +111,13 @@ fun HistoryScreenContent(
             }
 
             items(state.interactions) { record ->
-                InteractionCard(
+                RecordCard(
                     prompt = record.prompt,
                     response = record.aiResponse,
+                    expand = state.expandRecord,
                     icon = Icons.Filled.DeleteForever,
-                    onIconClick = { onEvent(HistoryEvents.OnDeleteRecordClicked(record)) },
-                    modifier = Modifier
-                        .fillMaxWidth()
+                    onExpand = { onEvent(HistoryEvents.OnExpandRecord) },
+                    onDelete = { onEvent(HistoryEvents.OnDeleteRecordClicked(record)) }
                 )
             }
         }

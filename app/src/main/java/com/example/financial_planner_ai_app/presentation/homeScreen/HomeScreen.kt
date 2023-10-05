@@ -28,12 +28,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.financial_planner_ai_app.presentation.components.InteractionCard
 import com.example.financial_planner_ai_app.presentation.homeScreen.HomeEvents
 import com.example.financial_planner_ai_app.presentation.homeScreen.HomeUiEvents
 import com.example.financial_planner_ai_app.presentation.homeScreen.HomeUiState
 import com.example.financial_planner_ai_app.presentation.homeScreen.HomeViewModel
 import com.example.financial_planner_ai_app.presentation.homeScreen.components.HomeTopBar
+import com.example.financial_planner_ai_app.presentation.homeScreen.components.InteractionCard
 import com.example.financial_planner_ai_app.presentation.homeScreen.components.ProfileCard
 import com.example.financial_planner_ai_app.presentation.navigation.Destinations
 import kotlinx.coroutines.flow.collectLatest
@@ -101,12 +101,9 @@ fun HomeScreenContent(
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(
-                    top = contentPadding.calculateTopPadding(),
-                    bottom = contentPadding.calculateBottomPadding()
-                ),
+                .padding(contentPadding),
             contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.SpaceBetween
+            verticalArrangement = Arrangement.SpaceEvenly
         ) {
 
 
@@ -119,12 +116,12 @@ fun HomeScreenContent(
             }
 
             item {
-                AnimatedVisibility(visible = state.showResponseCard) {
+                AnimatedVisibility(visible = state.showInteractionCard) {
                     InteractionCard(
                         prompt = state.prompt,
                         response = state.aiResponse,
                         icon = Icons.Filled.Save,
-                        onIconClick = { onEvent(HomeEvents.OnSaveInteraction) },
+                        onSave = { onEvent(HomeEvents.OnSaveInteraction) },
                         modifier = Modifier
                             .fillMaxWidth()
                     )
