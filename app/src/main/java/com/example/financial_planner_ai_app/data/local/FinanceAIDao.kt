@@ -16,7 +16,7 @@ interface FinanceAIDao {
     @Query("SELECT * FROM interaction_records WHERE interactionId = :id")
     fun getInteractionById(id: Int): InteractionRecord
 
-    @Query("SELECT * FROM interaction_records WHERE prompt LIKE :prompt")
+    @Query("SELECT * FROM interaction_records WHERE prompt LIKE '%' || :prompt || '%'")
     fun findInteractionByPrompt(prompt: String): List<InteractionRecord>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

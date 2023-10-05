@@ -118,8 +118,8 @@ fun HomeScreenContent(
             item {
                 AnimatedVisibility(visible = state.showInteractionCard) {
                     InteractionCard(
-                        prompt = state.prompt,
-                        response = state.aiResponse,
+                        title = state.interactionTitle,
+                        content = state.aiResponse,
                         icon = Icons.Filled.Save,
                         onSave = { onEvent(HomeEvents.OnSaveInteraction) },
                         modifier = Modifier
@@ -148,7 +148,10 @@ fun HomeScreenContent(
                         .fillMaxWidth(),
                     shape = MaterialTheme.shapes.medium,
                     trailingIcon = {
-                        IconButton(onClick = { onEvent(HomeEvents.OnGenerateChatResponse) }) {
+                        IconButton(
+                            onClick = { onEvent(HomeEvents.OnGenerateChatResponse) },
+                            enabled = state.prompt.isNotBlank()
+                        ) {
                             Icon(imageVector = Icons.Filled.Send, contentDescription = null)
                         }
                     }

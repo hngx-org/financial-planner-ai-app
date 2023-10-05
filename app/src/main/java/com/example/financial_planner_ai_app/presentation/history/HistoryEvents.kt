@@ -8,6 +8,5 @@ sealed interface HistoryEvents {
     data class OnRecordClicked(val record: InteractionRecord) : HistoryEvents
     object OnSearchClicked : HistoryEvents
     data class OnDeleteRecordClicked(val record: InteractionRecord) : HistoryEvents
-    object OnExpandRecord : HistoryEvents
     data class OnQueryChanged(val query: String) : HistoryEvents
 }

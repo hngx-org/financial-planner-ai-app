@@ -99,7 +99,7 @@ fun HistoryScreenContent(
                 .fillMaxSize()
                 .padding(contentPadding),
             contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.SpaceEvenly
+            verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
 
             item {
@@ -112,11 +112,9 @@ fun HistoryScreenContent(
 
             items(state.interactions) { record ->
                 RecordCard(
-                    prompt = record.prompt,
-                    response = record.aiResponse,
-                    expand = state.expandRecord,
+                    title = record.prompt,
+                    content = record.aiResponse,
                     icon = Icons.Filled.DeleteForever,
-                    onExpand = { onEvent(HistoryEvents.OnExpandRecord) },
                     onDelete = { onEvent(HistoryEvents.OnDeleteRecordClicked(record)) }
                 )
             }

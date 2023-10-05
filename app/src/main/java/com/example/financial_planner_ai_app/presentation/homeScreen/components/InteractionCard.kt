@@ -24,15 +24,15 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun InteractionCard(
-    prompt: String,
-    response: String,
+    title: String,
+    content: String,
     icon: ImageVector,
     onSave: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column {
         Text(
-            text = prompt,
+            text = title,
             textAlign = TextAlign.Start,
             letterSpacing = 0.07.sp,
         )
@@ -40,21 +40,19 @@ fun InteractionCard(
         Surface(
             modifier = modifier,
             shape = MaterialTheme.shapes.medium,
-            color = MaterialTheme.colorScheme.tertiary,
-            border = BorderStroke(2.dp, MaterialTheme.colorScheme.tertiaryContainer),
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
             tonalElevation = 12.dp
         ) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 Text(
-                    text = response,
+                    text = content,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(8.dp),
                     fontSize = 20.sp,
                     fontFamily = FontFamily.Cursive,
                     textAlign = TextAlign.Center,
-                    letterSpacing = 0.07.sp,
-                    color = MaterialTheme.colorScheme.onTertiary
+                    letterSpacing = 0.07.sp
                 )
             }
         }
@@ -62,7 +60,8 @@ fun InteractionCard(
         Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterEnd) {
             IconButton(
                 onClick = onSave,
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier.padding(4.dp),
+                enabled = title.isNotBlank()
             ) {
                 Icon(imageVector = icon, contentDescription = null)
             }
