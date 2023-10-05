@@ -7,5 +7,6 @@ data class HistoryState(
     val loading: Boolean = false,
     val query: String = "",
     val showRecord: Boolean = false,
-    val selectedRecord: InteractionRecord? = null
+    val selectedRecord: InteractionRecord? = null,
+    val expandRecord: Boolean = false,
 )

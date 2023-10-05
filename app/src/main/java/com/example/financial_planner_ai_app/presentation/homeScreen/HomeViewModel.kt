@@ -74,12 +74,13 @@ class HomeViewModel @Inject constructor(
                     aiResponse = _state.value.aiResponse
                 )
             )
+            _state.update { it.copy(showInteractionCard = false) }
         }
     }
 
     private fun generateChatResponse(userPrompt: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            _state.update { it.copy(showResponseCard = false) }
+            _state.update { it.copy(showInteractionCard = false) }
             openAiRepository.generateChatResponse(
                 userPrompt,
                 _state.value.userId
@@ -98,7 +99,7 @@ class HomeViewModel @Inject constructor(
                         _state.update {
                             it.copy(
                                 loading = false,
-                                showResponseCard = true,
+                                showInteractionCard = true,
                                 aiResponse = result.data ?: "Could not generate data"
                             )
                         }
@@ -116,13 +117,16 @@ class HomeViewModel @Inject constructor(
 
     private fun getUserData() {
         viewModelScope.launch(Dispatchers.IO) {
+            _state.update { it.copy(loading = true) }
             val response = authenticationRepo.getUserProfile()
             when (response) {
                 is ApiResponse.Error -> {
-                    _eventFlow.emit(HomeUiEvents.ShowSnackbar("Failed to get user data...smh"))
+                    _state.update { it.copy(loading = false) }
+                    _eventFlow.emit(HomeUiEvents.ShowSnackbar("Failed to get user data...smh" + response.message))
                 }
 
                 is ApiResponse.Success -> {
+                    _state.update { it.copy(loading = false) }
                     _state.update { it.copy(userData = response.data.data) }
                 }
             }
@@ -136,7 +140,7 @@ class HomeViewModel @Inject constructor(
             when (response) {
                 is ApiResponse.Error -> {
                     _state.update { it.copy(loading = false) }
-                    _eventFlow.emit(HomeUiEvents.ShowSnackbar("An error occurred while logging out."))
+                    _eventFlow.emit(HomeUiEvents.ShowSnackbar("An error occurred while logging out." + response.message))
                 }
 
                 is ApiResponse.Success -> {
